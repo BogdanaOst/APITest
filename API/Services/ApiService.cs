@@ -25,7 +25,7 @@ namespace API.Services
             var content = new StringContent(JsonConvert.SerializeObject(Data).ToString(), Encoding.UTF8, "application/json");
             var result = await client.PostAsync(MainPath+"order-history", content);
             Console.WriteLine(result.StatusCode);
-           // Console.WriteLine(await result.Content.ReadAsStringAsync());
+            Console.WriteLine(await result.Content.ReadAsStringAsync());
         }
 
         public async Task SalesReseipt(RootObjectSales_Purchase Data)
