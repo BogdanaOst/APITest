@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using Google.Apis.Discovery.v1;
 using Google.Apis.Discovery.v1.Data;
 using Google.Apis.Services;
+using Google.Cloud.BigQuery.V2;
+
 namespace API
 {
     class Program
@@ -19,7 +21,9 @@ namespace API
             Console.WriteLine("====================");
             try
             {
-                new Program().Run().Wait();
+                var bq = new BigQuerryServise();
+                //new Program().Run().Wait();
+                bq.Run().Wait();
             }
             catch (AggregateException ex)
             {
@@ -73,28 +77,6 @@ namespace API
             //service.PurchaseReseipt(DataS).GetAwaiter().GetResult();
 
         }
-
-        private async Task Run()
-        {
-            // Create the service.
-            var service = new DiscoveryService(new BaseClientService.Initializer
-            {
-                ApplicationName = "Discovery Sample",
-                ApiKey = "AIzaSyBEGQ946k-pGUZZRYTYIDM6NJEkGFh6G2s",
-            });
-
-            // Run the request.
-            Console.WriteLine("Executing a list request...");
-            var result = await service.Apis.List().ExecuteAsync();
-
-            // Display the results.
-            if (result.Items != null)
-            {
-                foreach (DirectoryList.ItemsData api in result.Items)
-                {
-                    Console.WriteLine(api.Id + " - " + api.Title);
-                }
-            }
-        }
+        
     }
 }
