@@ -19,8 +19,8 @@ namespace API.Services
         private readonly string jsonPath = "../../My First Project-010f4a50940c.json";
         public BigQuerryServise()
         {
-            var credential = GoogleCredential.FromFile(jsonPath);
-            _client =  BigQueryClient.Create(_projectId,credential);
+           var credential = GoogleCredential.FromFile(jsonPath);
+           _client =  BigQueryClient.Create(_projectId,credential);
            _service = new DiscoveryService(new BaseClientService.Initializer
             {
                 ApplicationName = "Discovery Sample",
@@ -33,28 +33,41 @@ namespace API.Services
             var datasets = client.ListDatasets().ToList();
             return datasets;
         }
-        public async Task InsertTest()
+
+        public async Task<BigQueryTable> GetTableById(string datasetId, string tableId)
         {
             try
             {
-                var result = ListDatasets(_client);
-                var dataset = result.Where(x => x.FullyQualifiedId == "bamboo-creek-195008:test1").FirstOrDefault();
-                var table = dataset.GetTable("TESTING");
-                BigQueryInsertRow row1 = new BigQueryInsertRow("row1")
-            {
-                { "FIRSTCOLUMN", "example" },
-                { "SECONDCOLUMN", 123 },
-                { "THIRDCOLUMN", 2.3 }
-            };
-                _client.InsertRow("test1", "TESTING", row1);
-                Console.WriteLine("Done");
+                var list = ListDatasets(_client);
+                var dataset = list.Where(x => x.FullyQualifiedId == _projectId + ":" + datasetId).FirstOrDefault();
+                var table = await dataset.GetTableAsync(tableId);
+                return table;
             }
-            catch(Exception exp)
+            catch(Exception ex)
             {
-                Console.WriteLine("Exception! Info:" + exp.Message);
+                Console.WriteLine("Exception! Info:" + ex.Message);
+                return null;
             }
         }
+        public void Insert(string datasetId, string tableId, Dictionary<string, object> data)
+        {
+            try
+            {
+                              
+                BigQueryInsertRow row = new BigQueryInsertRow()
+                 {
+                   data
+                 };
 
+                _client.InsertRow(datasetId, tableId, row);
+                Console.WriteLine("Done");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception! Info:" + ex.Message);
+            }
+
+        }
      
     }
 }

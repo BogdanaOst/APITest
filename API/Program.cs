@@ -22,8 +22,13 @@ namespace API
             try
             {
                 var bq = new BigQuerryServise();
-                //new Program().Run().Wait();
-                bq.InsertTest().Wait();
+                var data = new Dictionary<string, object>()
+                {
+                   { "FIRSTCOLUMN", "newRow" },
+                   { "SECONDCOLUMN", 56 },
+                   { "THIRDCOLUMN", 65.01 }
+                };
+                bq.Insert("test1","TESTING",data);
             }
             catch (AggregateException ex)
             {
