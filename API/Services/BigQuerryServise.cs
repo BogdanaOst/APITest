@@ -33,14 +33,26 @@ namespace API.Services
             var datasets = client.ListDatasets().ToList();
             return datasets;
         }
-        public async Task Run()
+        public async Task InsertTest()
         {
-
-
-            var result = ListDatasets(_client);
-            var dataset = result.Where(x => x.FullyQualifiedId == "bamboo-creek-195008:test1").FirstOrDefault();
-            var table = dataset.GetTable("TESTING");
-            Console.WriteLine(table.ListRows().Count());
+            try
+            {
+                var result = ListDatasets(_client);
+                var dataset = result.Where(x => x.FullyQualifiedId == "bamboo-creek-195008:test1").FirstOrDefault();
+                var table = dataset.GetTable("TESTING");
+                BigQueryInsertRow row1 = new BigQueryInsertRow("row1")
+            {
+                { "FIRSTCOLUMN", "example" },
+                { "SECONDCOLUMN", 123 },
+                { "THIRDCOLUMN", 2.3 }
+            };
+                _client.InsertRow("test1", "TESTING", row1);
+                Console.WriteLine("Done");
+            }
+            catch(Exception exp)
+            {
+                Console.WriteLine("Exception! Info:" + exp.Message);
+            }
         }
 
      

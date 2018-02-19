@@ -23,7 +23,7 @@ namespace API
             {
                 var bq = new BigQuerryServise();
                 //new Program().Run().Wait();
-                bq.Run().Wait();
+                bq.InsertTest().Wait();
             }
             catch (AggregateException ex)
             {
