@@ -38,13 +38,9 @@ namespace API.Services
 
 
             var result = ListDatasets(_client);
-            foreach (var x in result)
-                if (x.ListTables().Count()!=0)
-                {
-                    var list = x.GetTable("bamboo-creek-195008.test1.olesmokey").ListRows();
-                    foreach (var l in list)
-                        Console.WriteLine(l.ToString());
-                }
+            var dataset = result.Where(x => x.FullyQualifiedId == "bamboo-creek-195008:test1").FirstOrDefault();
+            var table = dataset.GetTable("TESTING");
+            Console.WriteLine(table.ListRows().Count());
         }
 
      
