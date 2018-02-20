@@ -1,12 +1,10 @@
 ﻿using Google.Apis.Auth.OAuth2;
 using Google.Apis.Discovery.v1;
-using Google.Apis.Discovery.v1.Data;
 using Google.Apis.Services;
 using Google.Cloud.BigQuery.V2;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace API.Services
@@ -17,16 +15,21 @@ namespace API.Services
         private readonly BigQueryClient _client;
         private readonly DiscoveryService _service;
         private readonly string jsonPath = "../../My First Project-010f4a50940c.json";
+        
+        #region Constructors 
+
         public BigQuerryServise()
         {
-           var credential = GoogleCredential.FromFile(jsonPath);
-           _client =  BigQueryClient.Create(_projectId,credential);
-           _service = new DiscoveryService(new BaseClientService.Initializer
+            var credential = GoogleCredential.FromFile(jsonPath);
+            _client = BigQueryClient.Create(_projectId, credential);
+            _service = new DiscoveryService(new BaseClientService.Initializer
             {
                 ApplicationName = "Discovery Sample",
                 ApiKey = "AIzaSyBEGQ946k-pGUZZRYTYIDM6NJEkGFh6G2s",
             });
         }
+
+        #endregion
 
         public List<BigQueryDataset> ListDatasets(BigQueryClient client)
         {

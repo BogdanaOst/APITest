@@ -9,6 +9,13 @@ using System.Threading.Tasks;
 
 namespace API.Services
 {
+    public class RequestTypeConstants 
+    {
+        public const string OrderHistoryRequest = "order-history";
+    }
+
+
+
     public class ApiService
     {
         string MainPath = "https://qa03chq.teamworkinsight.com/chqapi/export/v1/";
@@ -23,7 +30,8 @@ namespace API.Services
         public async Task OrderHistory(RootObjectOrder Data)
         {
             var content = new StringContent(JsonConvert.SerializeObject(Data).ToString(), Encoding.UTF8, "application/json");
-            var result = await client.PostAsync(MainPath+"order-history", content);
+            // new Uri(new Uri(MainPath), RequestTypeConstants.OrderHistoryRequest);
+            var result = await client.PostAsync(MainPath + RequestTypeConstants.OrderHistoryRequest, content);
             Console.WriteLine(result.StatusCode);
             Console.WriteLine(await result.Content.ReadAsStringAsync());
         }
