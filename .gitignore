@@ -9,6 +9,8 @@ App.config
 *.sln.docstates
 # AppConfig
 App.congig
+#Json keys
+My First Project-010f4a50940c.json
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
