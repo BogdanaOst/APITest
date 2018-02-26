@@ -109,7 +109,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="My First Project-010f4a50940c.json" />
-    <None Include="Services\My First Project-bf7a6be85e8c.p12" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
