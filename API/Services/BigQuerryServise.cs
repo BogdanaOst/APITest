@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using System.Configuration;
 namespace API.Services
 {
     public class BigQuerryServise
@@ -15,7 +16,7 @@ namespace API.Services
         private readonly BigQueryClient _client;
         private readonly DiscoveryService _service;
         private readonly string jsonPath = "../../My First Project-010f4a50940c.json";
-        
+        private readonly string ApiKey = ConfigurationManager.AppSettings["BigQueryApiKey"];
         #region Constructors 
 
         public BigQuerryServise()
@@ -25,7 +26,7 @@ namespace API.Services
             _service = new DiscoveryService(new BaseClientService.Initializer
             {
                 ApplicationName = "Discovery Sample",
-                ApiKey = "AIzaSyBEGQ946k-pGUZZRYTYIDM6NJEkGFh6G2s",
+                ApiKey = ApiKey,
             });
         }
 
