@@ -18,7 +18,7 @@ namespace API.Services
         private readonly string MainPath = ConfigurationManager.AppSettings["MainPath"];
         private readonly string ApiKey = ConfigurationManager.AppSettings["ApiKey"];
         private readonly string ContentType = "application/json";
-        private readonly string OrderHistoryRequest = "order-history";
+        private readonly string Request = "sales-receipt";
 
         private HttpClient client;
 
@@ -39,17 +39,18 @@ namespace API.Services
         #endregion
 
         #region Methods
-        //HttpPost Data to get List of OrderHistory
-        public async Task OrderHistory(RootObjectOrder Data)
+        //HttpPost Data to get List of SalesReceipts 
+        public async Task SalesReceipts(RootObject Data)
         {
             try
             {
                 InitClient();
                 var content = new StringContent(JsonConvert.SerializeObject(Data).ToString(), Encoding.UTF8, ContentType);
-                var url = new Uri(new Uri(MainPath), OrderHistoryRequest);
-                var result = await client.PostAsync(url, content);
+                var url = new Uri(new Uri(MainPath), Request);
+                var result = await client.PostAsync(url.AbsoluteUri, content);
                 Console.WriteLine(result.StatusCode);
-                Console.WriteLine(await result.Content.ReadAsStringAsync());
+                Console.ReadKey();
+                //Console.WriteLine(await result.Content.ReadAsStringAsync());
             }
 
             catch (Exception ex)

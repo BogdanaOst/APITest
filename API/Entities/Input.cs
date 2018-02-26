@@ -31,7 +31,6 @@ namespace API.Entities
         public List<Filter> Filters { get; set; }
         public List<SortDescription> SortDescriptions { get; set; }
         public int Top { get; set; }
-        public bool Ties { get; set; }
         public int Skip { get; set; }
     }
 
@@ -41,17 +40,10 @@ namespace API.Entities
         public Request Request { get; set; }
     }
   
-    public class RootObjectSales_Purchase
+    public class RootObject
     {
         public string Source { get; set; }
         public Data Data { get; set; }
-    }
-    public class RootObjectOrder
-    {
-        public string Source { get; set; }
-        public Data Data { get; set; }
-        public string ApiDocumentId { get; set; }
-        public bool IsAsync { get; set; }
     }
 
    
