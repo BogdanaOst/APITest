@@ -11,47 +11,57 @@ using System.Configuration;
 
 namespace API.Services
 {
-    public class RequestTypeConstants 
-    {
-        public const string OrderHistoryRequest = "order-history";
-    }
-
-
+   
+    //Service to connect with Cloudworks server
     public class ApiService
     {
-        string MainPath = ConfigurationManager.AppSettings["MainPath"];
-        string ApiKey = ConfigurationManager.AppSettings["ApiKey"];
-        string ContentType = "application/json";
-        HttpClient client = new HttpClient();
-        public ApiService()
+        private readonly string MainPath = ConfigurationManager.AppSettings["MainPath"];
+        private readonly string ApiKey = ConfigurationManager.AppSettings["ApiKey"];
+        private readonly string ContentType = "application/json";
+        private readonly string OrderHistoryRequest = "order-history";
+
+        private HttpClient client;
+
+        #region Preparations
+        //Init HttpClient
+        void InitClient()
         {
+            client = new HttpClient();
             client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue(ContentType));
             client.DefaultRequestHeaders.Add("ApiKey", ApiKey);
         }
 
+        //Dispose HttpClient
+        void DisposeClient()
+        {
+            client.Dispose();
+        }
+        #endregion
+
+        #region Methods
+        //HttpPost Data to get List of OrderHistory
         public async Task OrderHistory(RootObjectOrder Data)
         {
-            var content = new StringContent(JsonConvert.SerializeObject(Data).ToString(), Encoding.UTF8, ContentType);
-            // new Uri(new Uri(MainPath), RequestTypeConstants.OrderHistoryRequest);
-            var result = await client.PostAsync(MainPath + RequestTypeConstants.OrderHistoryRequest, content);
-            Console.WriteLine(result.StatusCode);
-            Console.WriteLine(await result.Content.ReadAsStringAsync());
-        }
+            try
+            {
+                InitClient();
+                var content = new StringContent(JsonConvert.SerializeObject(Data).ToString(), Encoding.UTF8, ContentType);
+                var url = new Uri(new Uri(MainPath), OrderHistoryRequest);
+                var result = await client.PostAsync(url, content);
+                Console.WriteLine(result.StatusCode);
+                Console.WriteLine(await result.Content.ReadAsStringAsync());
+            }
 
-        public async Task SalesReseipt(RootObjectSales_Purchase Data)
-        {
-            var content = new StringContent(JsonConvert.SerializeObject(Data).ToString(), Encoding.UTF8, ContentType);
-            var result = await client.PostAsync(MainPath + "sales-receipt", content);
-            Console.WriteLine(result.StatusCode);
-            //Console.WriteLine(await result.Content.ReadAsStringAsync());
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception! Info:" + ex.Message);
+            }
+            finally
+            {
+                DisposeClient();
+            }
         }
+        #endregion
 
-        public async Task PurchaseReseipt(RootObjectSales_Purchase Data)
-        {
-            var content = new StringContent(JsonConvert.SerializeObject(Data).ToString(), Encoding.UTF8, ContentType);
-            var result = await client.PostAsync(MainPath + "purchase-receipt", content);
-            Console.WriteLine(result.StatusCode);
-           // Console.WriteLine(await result.Content.ReadAsStringAsync());
-        }
     }
 }
