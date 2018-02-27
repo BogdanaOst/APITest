@@ -99,6 +99,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Output.cs" />
     <Compile Include="Entities\Input.cs" />
     <Compile Include="Entities\OleSmokey.cs" />
     <Compile Include="Program.cs" />

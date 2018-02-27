@@ -1,4 +1,5 @@
 ﻿using API.Entities;
+using API.Entities2;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -40,7 +41,7 @@ namespace API.Services
 
         #region Methods
         //HttpPost Data to get List of SalesReceipts 
-        public async Task SalesReceipts(RootObject Data)
+        public async Task SalesReceipts(Entities.RootObject Data)
         {
             try
             {
@@ -50,7 +51,8 @@ namespace API.Services
                 var result = await client.PostAsync(url.AbsoluteUri, content);
                 Console.WriteLine(result.StatusCode);
                 Console.ReadKey();
-                //Console.WriteLine(await result.Content.ReadAsStringAsync());
+                var output = JsonConvert.DeserializeObject<List<SalesReceipt>>(await result.Content.ReadAsStringAsync());
+               // System.IO.File.WriteAllText("text.txt", await result.Content.ReadAsStringAsync());
             }
 
             catch (Exception ex)
