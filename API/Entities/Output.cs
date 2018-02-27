@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace API.Entities2
+namespace API.Entities
 {
     public class TaxExemptInfo
     {
@@ -308,7 +308,7 @@ namespace API.Entities2
         public Response Response { get; set; }
     }
 
-    public class RootObject
+    public class ResultObj
     {
         public ApiDocument ApiDocument { get; set; }
     }

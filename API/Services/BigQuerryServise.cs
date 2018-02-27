@@ -1,4 +1,5 @@
 ﻿using Google.Apis.Auth.OAuth2;
+using API.Entities;
 using Google.Apis.Discovery.v1;
 using Google.Apis.Services;
 using Google.Cloud.BigQuery.V2;
@@ -58,6 +59,12 @@ namespace API.Services
             {
                 DisposeClient();
             }
+
+        }
+
+        public void Insert(ResultObj obj)
+        {
+
 
         }
         #endregion

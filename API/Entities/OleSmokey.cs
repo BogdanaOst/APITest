@@ -17,5 +17,10 @@ namespace API.Entities
         public string Department { get; set; }
         public string Class { get; set; }
         public string Subclass { get; set; }
+
+        public OleSmokey(ResultObj obj)
+        {
+
+        }
     }
 }
