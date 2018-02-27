@@ -22,7 +22,7 @@ namespace API.Entities
         {
             var dictionary = new Dictionary<string, object>()
             {
-                {"DateTime", DateTimeS},
+                {"DateTimeS", DateTimeS},
                 {"ProductId", ProductId},
                 {"Quantity", Quantity},
                 {"Price", Price},

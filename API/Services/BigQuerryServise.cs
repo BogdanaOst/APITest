@@ -68,23 +68,26 @@ namespace API.Services
             foreach(var s in sr)
             {
                 var date = s.PostedDateTime;
-                foreach(var i in s.Items)
+                if(s.Items!=null)
                 {
-                    var prod = new OleSmokey()
+                   foreach (var i in s.Items)
                     {
-                        DateTimeS = date,
-                        Quantity = i.Qty,
-                        ProductId = i.ItemDetails.PLU,
-                        Price = i.UnitAmount,
-                        ProductName = i.ItemDetails.ItemDescription,
-                        DCSS = i.ItemDetails.DCSS.DCSSCode,
-                        Department = i.ItemDetails.DCSS.DeptName,
-                        Class = i.ItemDetails.DCSS.ClassName,
-                        Subclass = i.ItemDetails.DCSS.SubClass1Name
-                    };
+                        var prod = new OleSmokey()
+                        {
+                            DateTimeS = date,
+                            Quantity = i.Qty,
+                            ProductId = i.ItemDetails.PLU,
+                            Price = i.UnitAmount,
+                            ProductName = i.ItemDetails.ItemDescription,
+                            DCSS = i.ItemDetails.DCSS.DCSSCode,
+                            Department = i.ItemDetails.DCSS.DeptName,
+                            Class = i.ItemDetails.DCSS.ClassName,
+                            Subclass = i.ItemDetails.DCSS.SubClass1Name
+                        };
 
-                    var dict = prod.GetDictionary();
-                    this.Insert("test2","OleSmokey",dict);
+                        var dict = prod.GetDictionary();
+                        this.Insert("test2", "OleSmokey2", dict);
+                    }
                 }
             }
 

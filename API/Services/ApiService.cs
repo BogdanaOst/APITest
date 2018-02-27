@@ -49,8 +49,8 @@ namespace API.Services
                 var url = new Uri(new Uri(MainPath), Request);
                 var result = await client.PostAsync(url.AbsoluteUri, content);
                 Console.WriteLine(result.StatusCode);
-                Console.ReadKey();
-                var output = JsonConvert.DeserializeObject<ResultObj>(await result.Content.ReadAsStringAsync());
+                var str = await result.Content.ReadAsStringAsync();
+                var output = JsonConvert.DeserializeObject<ResultObj>(str);
                 return output;
             }
 
