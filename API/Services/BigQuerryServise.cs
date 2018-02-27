@@ -64,7 +64,28 @@ namespace API.Services
 
         public void Insert(ResultObj obj)
         {
+            var sr = obj.ApiDocument.Response.SalesReceipts;
+            foreach(var s in sr)
+            {
+                var date = s.PostedDateTime;
+                foreach(var i in s.Items)
+                {
+                    var prod = new OleSmokey()
+                    {
+                        DateTimeS = date,
+                        Quantity = i.Qty,
+                        ProductId = i.ItemDetails.PLU,
+                        Price = i.UnitAmount,
+                        ProductName = i.ItemDetails.ItemDescription,
+                        DCSS = i.ItemDetails.DCSS.DCSSCode,
+                        Department = i.ItemDetails.DCSS.DeptName,
+                        Class = i.ItemDetails.DCSS.ClassName,
+                        Subclass = i.ItemDetails.DCSS.SubClass1Name
+                    };
 
+                    
+                }
+            }
 
         }
         #endregion

@@ -10,8 +10,8 @@ namespace API.Entities
     {
         public DateTime DateTimeS { get; set; }
         public int ProductId { get; set; }
-        public float Quantity { get; set; }
-        public float Price { get; set; }
+        public double Quantity { get; set; }
+        public double Price { get; set; }
         public string ProductName { get; set; }
         public string DCSS { get; set; }
         public string Department { get; set; }
