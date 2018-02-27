@@ -18,6 +18,22 @@ namespace API.Entities
         public string Class { get; set; }
         public string Subclass { get; set; }
 
-     
+        public Dictionary<string, object> GetDictionary()
+        {
+            var dictionary = new Dictionary<string, object>()
+            {
+                {"DateTime", DateTimeS},
+                {"ProductId", ProductId},
+                {"Quantity", Quantity},
+                {"Price", Price},
+                {"ProductName", ProductName},
+                {"DCSS", DCSS},
+                {"Department", Department},
+                {"Class", Class},
+                {"Subclass", Subclass}
+            };
+
+            return dictionary;
+        }
     }
 }

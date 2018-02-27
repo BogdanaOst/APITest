@@ -9,49 +9,34 @@ namespace API
     {
         static void Main(string[] args)
         {
-            //Console.WriteLine("Discovery API Sample");
-            //Console.WriteLine("====================");
-            //try
-            //{
-            //    var bq = new BigQuerryServise();
-            //    var data = new Dictionary<string, object>()
-            //    {
-            //       { "FIRSTCOLUMN", "newRow" },
-            //       { "SECONDCOLUMN", 56 },
-            //       { "THIRDCOLUMN", 65.01 }
-            //    };
-            //    bq.Insert("test1","TESTING",data);
-            //}
-            //catch (AggregateException ex)
-            //{
-            //    foreach (var e in ex.InnerExceptions)
-            //    {
-            //        Console.WriteLine("ERROR: " + e.Message);
-            //    }
-            //}
-            //Console.WriteLine("Press any key to continue...");
-            //Console.ReadKey();
-
-
-            RootObject Data = new RootObject()
+            try
             {
-                Source = "Something",
-                Data = new Data()
+                RootObject Data = new RootObject()
                 {
-                    ApiDocumentId = "00000000-0000-0000-0000-000000000000",
-                    Request = new Request()
+                    Source = "Something",
+                    Data = new Data()
                     {
-                        Filters = new List<Filter>(),
-                        Settings = new List<Setting>(),
-                        Skip = 0,
-                        SortDescriptions = new List<SortDescription>(),
-                        Top = 0
+                        ApiDocumentId = "00000000-0000-0000-0000-000000000000",
+                        Request = new Request()
+                        {
+                            Filters = new List<Filter>(),
+                            Settings = new List<Setting>(),
+                            Skip = 0,
+                            SortDescriptions = new List<SortDescription>(),
+                            Top = 10
+                        }
                     }
-                }
-            };
+                };
 
-            ApiService service = new ApiService();
-            service.SalesReceipts(Data).GetAwaiter().GetResult();
+                ApiService apiService = new ApiService();
+                var data = apiService.SalesReceipts(Data).GetAwaiter().GetResult();
+                BigQuerryServise bqService = new BigQuerryServise();
+                bqService.Insert(data);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
 
         }
         

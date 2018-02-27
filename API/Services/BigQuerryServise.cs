@@ -83,7 +83,8 @@ namespace API.Services
                         Subclass = i.ItemDetails.DCSS.SubClass1Name
                     };
 
-                    
+                    var dict = prod.GetDictionary();
+                    this.Insert("test2","OleSmokey",dict);
                 }
             }
 
