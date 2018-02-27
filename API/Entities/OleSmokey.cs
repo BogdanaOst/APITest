@@ -18,9 +18,6 @@ namespace API.Entities
         public string Class { get; set; }
         public string Subclass { get; set; }
 
-        public OleSmokey(ResultObj obj)
-        {
-
-        }
+     
     }
 }
