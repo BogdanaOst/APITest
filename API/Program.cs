@@ -25,7 +25,7 @@ namespace API
                             {
                                 Filters = new List<Filter>(),
                                 Settings = new List<Setting>(),
-                                Skip = 0,
+                                Skip = i,
                                 SortDescriptions = new List<SortDescription>(),
                                 Top = 100
                             }
@@ -39,12 +39,13 @@ namespace API
                     Console.WriteLine(i);
                     BigQuerryServise bqService = new BigQuerryServise();
                     bqService.Insert(data);
+                    Console.WriteLine("Done");
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
-            } while (counter >= 100);
+            } while (counter == 100);
          
 
         }

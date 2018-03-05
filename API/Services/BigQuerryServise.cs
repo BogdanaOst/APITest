@@ -42,7 +42,7 @@ namespace API.Services
         {
             try
             {
-                InitClient();        
+                       
                 BigQueryInsertRow row = new BigQueryInsertRow()
                  {
                    data
@@ -55,17 +55,14 @@ namespace API.Services
             {
                 Console.WriteLine("Exception! Info:" + ex.Message);
             }
-            finally
-            {
-                DisposeClient();
-            }
-
+            
         }
 
         public void Insert(ResultObj obj)
         {
             var sr = obj.ApiDocument.Response.SalesReceipts;
-            foreach(var s in sr)
+            InitClient();
+            foreach (var s in sr)
             {
                 var date = s.PostedDateTime;
                 if(s.Items!=null)
@@ -90,7 +87,7 @@ namespace API.Services
                     }
                 }
             }
-
+            DisposeClient();
         }
         #endregion
     }
