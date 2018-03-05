@@ -9,34 +9,43 @@ namespace API
     {
         static void Main(string[] args)
         {
-            try
+            int i = 0;
+            int counter=0;
+            do
             {
-                RootObject Data = new RootObject()
+                try
                 {
-                    Source = "Something",
-                    Data = new Data()
+                    RootObject Data = new RootObject()
                     {
-                        ApiDocumentId = "00000000-0000-0000-0000-000000000000",
-                        Request = new Request()
+                        Source = "Something",
+                        Data = new Data()
                         {
-                            Filters = new List<Filter>(),
-                            Settings = new List<Setting>(),
-                            Skip = 0,
-                            SortDescriptions = new List<SortDescription>(),
-                            Top = 10
+                            ApiDocumentId = "00000000-0000-0000-0000-000000000000",
+                            Request = new Request()
+                            {
+                                Filters = new List<Filter>(),
+                                Settings = new List<Setting>(),
+                                Skip = 0,
+                                SortDescriptions = new List<SortDescription>(),
+                                Top = 100
+                            }
                         }
-                    }
-                };
+                    };
 
-                ApiService apiService = new ApiService();
-                var data = apiService.SalesReceipts(Data).GetAwaiter().GetResult();
-                BigQuerryServise bqService = new BigQuerryServise();
-                bqService.Insert(data);
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+                    ApiService apiService = new ApiService();
+                    var data = apiService.SalesReceipts(Data).GetAwaiter().GetResult();
+                    counter = data.ApiDocument.Response.SalesReceipts.Count;
+                    i += counter;
+                    Console.WriteLine(i);
+                    BigQuerryServise bqService = new BigQuerryServise();
+                    bqService.Insert(data);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            } while (counter >= 100);
+         
 
         }
         

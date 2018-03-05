@@ -49,7 +49,7 @@ namespace API.Services
                  };
 
                 _client.InsertRow(datasetId, tableId, row);
-                Console.WriteLine("Done");
+ //               Console.WriteLine("Done");
             }
             catch (Exception ex)
             {
