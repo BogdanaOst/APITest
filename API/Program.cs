@@ -15,6 +15,7 @@ namespace API
             {
                 try
                 {
+                    Setting DCSS = new Setting() { Key = "DepSetSetting", Value = "Extended" };
                     RootObject Data = new RootObject()
                     {
                         Source = "Something",
@@ -24,7 +25,7 @@ namespace API
                             Request = new Request()
                             {
                                 Filters = new List<Filter>(),
-                                Settings = new List<Setting>(),
+                                Settings = new List<Setting>() { DCSS },
                                 Skip = i,
                                 SortDescriptions = new List<SortDescription>(),
                                 Top = 100

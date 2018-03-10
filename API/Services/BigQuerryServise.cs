@@ -83,7 +83,7 @@ namespace API.Services
                         };
 
                         var dict = prod.GetDictionary();
-                        this.Insert("test2", "OleSmokey2", dict);
+                        this.Insert("test2", "OleSmokey3", dict);
                     }
                 }
             }
